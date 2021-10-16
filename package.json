@@ -28,11 +28,12 @@
     "universal-cookie": "^4.0.4",
     "uuidv4": "^6.2.12",
     "web-vitals": "^1.1.2"
-  },  "scripts": {
+  },
+  "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
-  }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
