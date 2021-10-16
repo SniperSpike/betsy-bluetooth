@@ -10,7 +10,6 @@
     "@testing-library/user-event": "^12.8.3",
     "@u-wave/react-youtube": "^0.7.2",
     "bootstrap": "^5.1.1",
-    "color-thief": "^2.2.5",
     "color.js": "^1.2.0",
     "fabric": "^4.6.0",
     "firebase": "^9.0.2",
