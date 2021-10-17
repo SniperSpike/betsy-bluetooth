@@ -11,11 +11,13 @@ import isPaused from "./isPaused";
 import isShuffled from "./isShuffled";
 import isLooping from "./isLooping";
 import colorPalette from "./colorPalette";
+import volumeReducer from "./volume";
 
 const allReducers = combineReducers({
   playlist: setPlaylist,
   token: tokenReducer,
   songId: videoIdReducer,
+  volume: volumeReducer,
   isPaused,
   isShuffled,
   isLooping,

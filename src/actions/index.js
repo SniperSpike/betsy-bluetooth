@@ -88,6 +88,13 @@ export const setIsShuffled = (payload) => {
   };
 };
 
+export const setVolume = (payload) => {
+  return {
+    type: "setVolume",
+    payload,
+  };
+};
+
 export const setIsLooping = (payload) => {
   return {
     type: "setIsLooping",

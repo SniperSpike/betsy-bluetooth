@@ -12,6 +12,7 @@ const Ytplayer = () => {
   const showVid = useSelector((state) => state.showVideo);
   const isShuffled = useSelector((state) => state.isShuffled);
   const isLooping = useSelector((state) => state.isLooping);
+  const volume = useSelector((state) => state.volume);
 
   const onChange = (e) => {
     switch (e.data) {
@@ -53,21 +54,24 @@ const Ytplayer = () => {
   };
 
   return (
-    <YouTube
-      id="player"
-      autoplay
-      paused={isPaused}
-      startSeconds={0}
-      video={videoId}
-      className={showVid ? "" : "hidden"}
-      allowFullscreen={false}
-      // controls={false}
-      modestBranding={true}
-      onEnd={onVideoEnd}
-      onStateChange={onChange}
-      playsInline={true}
-      // disableKeyboard={true}
-    />
+    <div className="yt-player">
+      <YouTube
+        id="player"
+        autoplay
+        paused={isPaused}
+        startSeconds={0}
+        video={videoId}
+        className={showVid ? "" : "hidden"}
+        allowFullscreen={true}
+        controls={false}
+        modestBranding={true}
+        onEnd={onVideoEnd}
+        onStateChange={onChange}
+        playsInline={true}
+        volume={volume}
+        // disableKeyboard={true}
+      />
+    </div>
   );
 };
 

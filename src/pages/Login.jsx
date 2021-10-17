@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../actions";
 import { firebase, auth} from '../firebase';
 import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
+import GoogleLogo from "../images/google.png"
+import Betsy from "../images/trekker.png";
 const Login = () =>{
     const dispatch = useDispatch();
     const signInWithGoogle = () => {
@@ -20,8 +22,12 @@ const Login = () =>{
       }
 
       return (
-          <div>
-              <center><br/><br/><Button variant="danger" onClick={signInWithGoogle}>Login met Google</Button></center>
+          <div className="wrapper">
+            <div className="login">
+                <img className="login__logo" src={Betsy} alt=""/>
+                <h1 className="logo__title">Betsy Bluetooth Mediaplayer</h1>
+                <Button className="login__googleButton" onClick={signInWithGoogle}><img className="login__googleLogo" src={GoogleLogo} alt=""/>Login met Google</Button>
+            </div>
           </div>
       )
 }

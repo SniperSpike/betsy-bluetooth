@@ -47,33 +47,6 @@ const SearchItem = ({ title, disc, image, dataUrl }) => {
                 dispatch(setSearchValue(""));
                 dispatch(setSearchResults([]));
               }, 300);
-
-              // firestore
-              //   .collection("playlist")
-              //   .where("token", "==", token)
-              //   .onSnapshot(async (res) => {
-              //     res.forEach((doc) => {
-              //       let queueRef = firestore.collection(
-              //         `${doc.ref.path}/queue`
-              //       );
-              //       queueRef.doc(songId.replace(/-|_/g, "")).set({
-              //         token,
-              //         songId: songId,
-              //         title,
-              //         artist,
-              //         photoURL,
-              //         duration,
-              //         uid,
-              //         createdAt:
-              //           firebase.firestore.FieldValue.serverTimestamp(),
-              //       });
-              //       goBack();
-              //       setTimeout(() => {
-              //         dispatch(setSearchValue(""));
-              //         dispatch(setSearchResults([]));
-              //       }, 300);
-              //     });
-              //   });
             });
           }
         );

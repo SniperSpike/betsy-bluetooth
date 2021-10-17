@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import  { db } from '../firebase';
+import  { db, auth } from '../firebase';
 import Player from '../components/player';
 import Header from '../components/layout/header';
+import Footer from '../components/layout/footer';
 import { useDispatch } from "react-redux";
-import { setToken } from "../actions";
+import { setToken, setUser } from "../actions";
 import { collection, query, where, getDocs } from "@firebase/firestore";
+import { onAuthStateChanged } from "@firebase/auth";
 
 let token = '';
 const settings = {
@@ -35,6 +37,14 @@ const Search = (match) =>{
         return found;
     }
 
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setUser(user);
+        } else {
+            window.location.href = "/login";
+        }
+    });
+
     checkToken(token).then(key=>{
         if(!key) window.location.href = '/join';
         dispatch(setToken(token));
@@ -48,6 +58,7 @@ const Search = (match) =>{
             <div id="SearchPage" className={tokenKey ? null : 'hidden'}>
                 <Header type="desktop"/>
                 <Player token={token}/>
+                <Footer />
             </div>
         </>
     )

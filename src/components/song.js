@@ -1,7 +1,12 @@
 import React from "react";
 import $ from "jquery";
 import { db } from "../firebase";
-import { Equalizer, MoreVert } from "@material-ui/icons";
+import {
+  Equalizer,
+  // Favorite,
+  // FavoriteBorder,
+  MoreVert,
+} from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { isPausedToggle, setSong } from "../actions";
 import { YTDurationToSeconds, secondsToHms } from "./global";
@@ -87,8 +92,10 @@ const Song = (props) => {
         />
       </div>
       <div className="details">
-        <span className="details-title">{props.title}</span>
-        <span className="details-artist">{`${props.artist} • ${duration}`}</span>
+        <div className="details-inner">
+          <span className="details-title">{props.title}</span>
+          <span className="details-artist">{`${props.artist} • ${duration}`}</span>
+        </div>
       </div>
       <div className="details-right">
         <button

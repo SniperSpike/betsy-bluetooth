@@ -1,0 +1,19 @@
+Errors
+[ ] error met token loading wanneer je niet bent ingelogd fixen!
+
+Features
+[ ] functie voor verwijderen van mensen uit je playlist
+[ ] functie voor host van playlist (alleen host kan verwijderen)
+[ ] suggesties pagina op zoek page
+[ ] watch2gether functies
+[ ] party member display
+[ ] youtube to mp3/mp4 convert optie
+[ ] zorg ervoor dat alle nummers daadwerkelijk in een playlist komen via de embed
+[ ] like knop binden aan een favoriete nummers playlist
+- [ ] favoriete playlist inplaats van lyrics
+[ ] token limiet voor 3 playlists (meer kan later worden toegevoegd)
+[ ] favicon veranderen in dikke betsy trekkeeeer
+[ ] chat functie
+
+Optioneel
+[ ] color changer voor pagina

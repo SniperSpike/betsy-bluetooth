@@ -2,19 +2,18 @@ import React, { useState, useEffect } from "react";
 import Header from "./layout/header.js";
 import $ from "jquery";
 import Song from "./song";
-import Album from "./album";
-import Lyrics from "./lyrics";
+import Ytplayer from "./ytplayer";
 import { db } from "../firebase";
 import Search from "../components/search";
 import { useDispatch, useSelector } from "react-redux";
 import FlipMove from "react-flip-move";
+import Favorite from "./favorite";
 import { setPlaylist } from "../actions/index.js";
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
 
 function Player(props) {
   const dispatch = useDispatch();
   const playlist = useSelector((state) => state.playlist);
-  const colorPalette = useSelector((state) => state.colorPalette);
 
   useEffect(() => {
     onSnapshot(
@@ -36,19 +35,19 @@ function Player(props) {
   const [btnToggle, setBtnToggle] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  function toggleQueue(event) {
-    $(".queue-btn").removeClass("active");
-    if (!isOpen) {
-      setBtnToggle(false);
-      $("#queue").css("top", "0");
-      $("#current-video").slideToggle();
-      setIsOpen(!isOpen);
-    } else {
-      $("#queue").css("top", "calc(calc(100vh - calc(100vh - 100%)) - 60px)");
-      $("#current-video").slideToggle();
-      setIsOpen(!isOpen);
-    }
-  }
+  // function toggleQueue(event) {
+  //   $(".queue-btn").removeClass("active");
+  //   if (!isOpen) {
+  //     setBtnToggle(false);
+  //     $("#queue").css("top", "0");
+  //     $("#current-video").slideToggle();
+  //     setIsOpen(!isOpen);
+  //   } else {
+  //     $("#queue").css("top", "calc(calc(100vh - calc(100vh - 100%)) - 60px)");
+  //     $("#current-video").slideToggle();
+  //     setIsOpen(!isOpen);
+  //   }
+  // }
 
   function setUpNext(event) {
     setBtnToggle(false);
@@ -61,7 +60,11 @@ function Player(props) {
     }
   }
 
-  function setLyrics(event) {}
+  function setFavorite(event) {
+    setBtnToggle(true);
+    $(".queue-btn").removeClass("active");
+    event.currentTarget.classList.add("active");
+  }
 
   if (playlist === undefined) {
     return <></>;
@@ -69,7 +72,8 @@ function Player(props) {
     return (
       <div id="media-player" className="fix-nav">
         <div id="album">
-          <Album />
+          {/* <Album /> */}
+          <Ytplayer />
           <div className="browser-search">
             <Search />
           </div>
@@ -77,36 +81,19 @@ function Player(props) {
         <div id="queue">
           <div className="viewport-hidden"></div>
           <nav>
-            <span
-              className="queue-balk"
-              onClick={(event) => toggleQueue(event)}
-            ></span>
             <div id="queue-buttons">
               <button
-                className="queue-btn"
+                className="queue-btn active"
                 onClick={(event) => setUpNext(event)}
               >
                 up next
               </button>
               <button
-                className="queue-btn disabled"
-                disabled
-                onClick={(event) => setLyrics(event)}
+                className="queue-btn"
+                onClick={(event) => setFavorite(event)}
               >
-                lyrics
+                Favorites
               </button>
-              {colorPalette.map((item) => {
-                return (
-                  <div
-                    style={{
-                      width: "150px",
-                      height: "50px",
-                      backgroundColor: `rgb(${item[0]}, ${item[1]}, ${item[2]})`,
-                      display: "inline-block",
-                    }}
-                  ></div>
-                );
-              })}
             </div>
           </nav>
 
@@ -133,8 +120,8 @@ function Player(props) {
               ""
             )}
           </div>
-          <div id="lyrics" className={btnToggle ? "" : "hidden"}>
-            <Lyrics />
+          <div id="favorite" className={btnToggle ? "" : "hidden"}>
+            <Favorite />
           </div>
         </div>
         <div id="searchPopup">
