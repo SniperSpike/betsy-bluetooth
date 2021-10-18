@@ -67,6 +67,11 @@ const Ytplayer = () => {
         modestBranding={true}
         onEnd={onVideoEnd}
         onStateChange={onChange}
+        showCaptions={false}
+        showRelatedVideos={false}
+        showInfo={false}
+        suggestedQuality={false}
+        annotations={false}
         playsInline={true}
         volume={volume}
         // disableKeyboard={true}

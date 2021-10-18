@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isPausedToggle, setSong } from "../actions";
 import { YTDurationToSeconds, secondsToHms } from "./global";
 import { deleteDoc, doc } from "@firebase/firestore";
+import { IconButton } from "@material-ui/core";
 
 function resize_to_fit() {
   var fontsize = $(".album-details > .title-items > .title").css("font-size");
@@ -94,17 +95,18 @@ const Song = (props) => {
       <div className="details">
         <div className="details-inner">
           <span className="details-title">{props.title}</span>
-          <span className="details-artist">{`${props.artist} • ${duration}`}</span>
+          <span className="details-artist">{`${props.artist}`}</span>
         </div>
       </div>
       <div className="details-right">
-        <button
+        <span className="details-timestamp">{duration}</span>
+        <IconButton
           className="details-btn"
           data-youtube-id={props.ytid}
           onClick={(event) => settings(event)}
         >
           <MoreVert />
-        </button>
+        </IconButton>
       </div>
     </div>
   );
