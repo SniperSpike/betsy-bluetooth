@@ -52,7 +52,6 @@ const Home = () => {
     }
 
     const scrollLoad = () => {
-        console.log('scrollLoad run')
         setScrollLock(true);
         if(playlist.length > 0){
             if(used.length !== playlist.length){

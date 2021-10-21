@@ -18,7 +18,6 @@ const Form = () => {
       .then(async (res) => {
         if (res.data.items) {
             setError("");
-            console.log(res.data.items[0]);
             let channelId = res.data.items[0].id;
             let channelTitle = res.data.items[0].snippet.localized.title;
             await setDoc(

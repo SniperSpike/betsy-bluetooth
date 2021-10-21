@@ -75,7 +75,6 @@ const Playlist = (props) => {
         `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet,status&maxResults=50&channelId=${channelId}&key=${token}`
       )
       .then((res) => {
-        console.log(res);
         if (res.data.items[0].status.privacyStatus === "public") {
           setPlaylist(res.data.items);
         }
