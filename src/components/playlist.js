@@ -14,7 +14,9 @@ const Playlist = (props) => {
   const user = useSelector((state) => state.user);
   const token = "AIzaSyArK7LW94cC06E2Kxb6lV3Hql3g6HTaU30";
   const [playlist, setPlaylist] = useState([]);
-  const [image, setImage] = useState([]);
+  const [image, setImage] = useState(
+    "http://www.proedsolutions.com/wp-content/themes/micron/images/placeholders/placeholder_large_dark.jpg"
+  );
   const channelId = props.channelId;
   const channelName = props.user;
   const subs = props.subs;
@@ -67,10 +69,13 @@ const Playlist = (props) => {
   const getPlaylist = () => {
     axios
       .get(
-        `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=50&channelId=${channelId}&key=${token}`
+        `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet,status&maxResults=50&channelId=${channelId}&key=${token}`
       )
       .then((res) => {
-        setPlaylist(res.data.items);
+        console.log(res);
+        if (res.data.items[0].status.privacyStatus === "public") {
+          setPlaylist(res.data.items);
+        }
       });
   };
 
@@ -118,18 +123,21 @@ const Playlist = (props) => {
             if (
               item.snippet.thumbnails.high ===
               "https://i.ytimg.com/img/no_thumbnail.jpg"
-            )
+            ) {
               return <></>;
-            return (
-              <PlaylistItem
-                key={uuid()}
-                index={index}
-                playlistId={item.id}
-                thumb={item.snippet.thumbnails.high}
-                title={item.snippet.localized.title}
-                user={item.snippet.channelTitle}
-              />
-            );
+            } else {
+              return (
+                <PlaylistItem
+                  key={uuid()}
+                  index={index}
+                  playlistId={item.id}
+                  thumb={item.snippet.thumbnails.high}
+                  title={item.snippet.localized.title}
+                  user={item.snippet.channelTitle}
+                  data={item}
+                />
+              );
+            }
           })}
         </div>
         <IconButton

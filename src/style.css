@@ -568,6 +568,13 @@ input[type="text"]:disabled {
   display: none !important;
 }
 
+.homespinner {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+  color: white;
+}
+
 /* videoRow */
 .videoRow {
   display: flex;

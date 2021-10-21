@@ -11,6 +11,7 @@ import Join from "./pages/Join";
 import Search from "./pages/Search";
 import { setUser } from "./actions";
 import Home from "./pages/Home";
+import Add from "./pages/Add";
 
 function App(params) {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App(params) {
             </Route>
           )}
           <Route exact path="/home" component={Home}></Route>
+          <Route exact path="/home/add" component={Add}></Route>
           <Route path="/join" exact component={Join}></Route>
           <Route path="/:token" component={Search}></Route>
         </Switch>

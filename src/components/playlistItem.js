@@ -6,7 +6,6 @@ import { selectedPlaylist, setPlaylistId } from "../actions";
 
 const PlaylistItem = (props) => {
   const dispatch = useDispatch();
-  const index = props.index;
 
   const SetPlaylist = () => {
     dispatch(selectedPlaylist(props));
@@ -25,12 +24,7 @@ const PlaylistItem = (props) => {
   return (
     <div className="playlistItem">
       <div className="playlistItem__imageContainer">
-        <img
-          src={`${props.thumb.url}`}
-          loading={index <= 4 ? "eager" : "lazy"}
-          height="226px"
-          alt=""
-        />
+        <img src={`${props.thumb.url}`} loading="lazy" height="226px" alt="" />
       </div>
       <div className="playlistItem__overlay">
         <div>
@@ -42,7 +36,9 @@ const PlaylistItem = (props) => {
           </IconButton>
         </div>
       </div>
-      <span onClick={() => SetPlaylist()}>{props.title}</span>
+      <span style={{ maxWidth: "220px" }} onClick={() => SetPlaylist()}>
+        {props.title}
+      </span>
       <span>{props.user}</span>
     </div>
   );
