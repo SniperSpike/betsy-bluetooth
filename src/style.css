@@ -6,9 +6,32 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #181818;
+  border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #606060;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 body {
-  position: fixed;
-  overflow: hidden;
+  /* position: fixed;
+  overflow: hidden; */
   top: 0;
   left: 0;
   right: 0;
@@ -99,7 +122,7 @@ body {
 #searchBar {
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 500;
 }
 
 #search-nav {
@@ -424,7 +447,7 @@ input:focus {
   display: flex;
   width: 100%;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   height: 100vh;
   flex-direction: column;
   transition: all 0.3s ease-in;
@@ -921,6 +944,239 @@ input[type="range"]::-webkit-slider-thumb {
   color: white;
   padding: 1em;
 }
+.playlistBox {
+  margin-bottom: 5em;
+}
+
+.playlistBox__info {
+  display: flex;
+  flex-direction: row;
+}
+
+.playlistBox__info img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50px;
+  margin-right: 1em;
+}
+
+.playlistItem {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2em;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  transition: all 300ms ease;
+}
+
+.playlistItem:hover .playlistItem__overlay {
+  display: block;
+}
+.playlistItem__overlay {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 226px;
+  height: 226px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%);
+}
+.playlistItem__overlay:hover {
+  cursor: pointer;
+}
+.playlistItem__overlay--arrow {
+  color: white !important;
+  background-color: #000000b3 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  position: absolute !important;
+  bottom: 1em;
+  right: 1em;
+  transition: background-color 300ms ease;
+}
+.playlistItem__overlay--arrow:hover {
+  background-color: black !important;
+  cursor: pointer;
+  zoom: 1.1;
+  bottom: 0.8em;
+  right: 0.85em;
+}
+.playlistInfo {
+  display: none;
+}
+
+.playlistItem span:nth-child(3) {
+  margin-top: 1em;
+  width: fit-content;
+}
+.playlistItem span:nth-child(3):hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.playlistItem span:nth-child(4) {
+  color: #aaaaaa;
+}
+
+.playlistItem__imageContainer {
+  display: flex;
+  justify-content: center;
+  width: 226px;
+  height: 226px;
+  overflow: hidden;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.playlistItem__imageContainer:hover {
+  cursor: pointer;
+}
+
+.playlistItem__imageContainer img {
+  zoom: 1.35;
+}
+
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sliderBtn {
+  height: 40px;
+  z-index: 100;
+  background-color: white !important;
+  color: black !important;
+}
+.sliderBtn:hover {
+  background-color: white !important;
+}
+.sliderBtn:nth-child(1) {
+  margin-right: -20px;
+  margin-top: -80px;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.sliderBtn:nth-child(3) {
+  margin-left: -20px;
+  margin-top: -80px;
+  transition: opacity 300ms ease;
+}
+
+.playlistContainer {
+  display: flex;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5em;
+}
+
+.infoContainer__left img {
+  width: 246px;
+  height: 246px;
+  border-radius: 5px;
+}
+.infoContainer__right {
+  margin-left: 3em;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+}
+.infoContainer__title {
+  color: white;
+  font-weight: bold;
+}
+
+.infoContainer__data,
+.infoContainer__disc {
+  color: #ffffffb3;
+}
+
+.infoContainer__disc {
+  margin-top: 1em;
+}
+
+.infoContainer__right--buttons {
+  margin-top: 1em;
+}
+
+.infoContainer__right--buttons button {
+  padding-inline: 1.5em;
+  padding-block: 0.5em;
+  border-radius: 5px;
+  border: 1px solid white;
+  margin-right: 1em;
+  font-weight: bold;
+  font-size: 0.8em;
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+.infoContainer__right--buttons button:nth-child(1) {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.right__buttons--morevert {
+  color: white;
+  cursor: pointer;
+}
+
+.playlistTable {
+  width: 100%;
+  margin-top: 4em;
+  margin-bottom: 5em;
+}
+
+.scrollbox {
+  overflow: scroll;
+}
+
+.tableItem {
+  width: 100%;
+  height: 45px;
+  /* background-color: white; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #1d1d1d;
+}
+
+.tableItem__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0em 0em 0em 1.5em;
+  color: #909090;
+  font-weight: 550;
+}
+
+.tableItem__title {
+  color: white;
+  width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tableItem__disc {
+  text-align: left;
+  flex: 1;
+}
+
+.tableItem img {
+  width: 32px;
+  height: 32px;
+}
 
 iframe {
   z-index: 1000;
@@ -1224,9 +1480,9 @@ iframe {
     display: none;
   }
 
-  .fix-nav {
+  /* .fix-nav {
     padding: 0;
-  }
+  } */
   .viewport-hidden {
     display: block;
   }
@@ -1240,15 +1496,6 @@ iframe {
     margin: 0;
     padding: 0;
     aspect-ratio: 16/9;
-  }
-  #queue {
-    /* margin: 0;
-    padding: 0;
-    width: 100%;
-    position: fixed;
-    transition: 0.6s all ease-in-out;
-    height: 100vh;
-    display: none; */
   }
   #queue-list-title {
     padding: 1em;
@@ -1313,6 +1560,30 @@ iframe {
     background: var(--blue-2);
     display: block;
     transition: 0.6s all ease-in-out;
+  }
+  .playlistItem__imageContainer {
+    width: 160px !important;
+    height: 160px !important;
+  }
+  .playlistItem__imageContainer img {
+    width: 160px !important;
+    height: 160px !important;
+  }
+  .playlistBox__info img {
+    width: 50px;
+    height: 50px;
+  }
+  .playlistBox__info > div > h2 {
+    font-size: 1.2em;
+  }
+  .playlistBox__info > div > span {
+    font-size: 0.8em !important;
+  }
+  .playlistBox__info > div > h2 > svg {
+    font-size: 1em !important;
+  }
+  .playlistBox {
+    margin-bottom: 2em;
   }
   .browser-search {
     z-index: -1;

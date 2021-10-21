@@ -1,0 +1,14 @@
+if user has playlist inside db
+    show user playlists
+else
+    get request to playlist api to gain access to user playlist
+
+
+if user clicks on playlist
+    check if playlist already generated inside of playlist db
+    if playlist exists redirect to playlist token
+    else generate playlist and show loading screen
+
+
+GET https://www.googleapis.com/youtube/v3/playlists
+GET https://www.googleapis.com/youtube/v3/playlistItems

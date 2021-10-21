@@ -1,5 +1,6 @@
 Errors
 [x] error met token loading wanneer je niet bent ingelogd fixen!
+[ ] fix loop en shuffle buttons functionaliteit
 
 Features
 [ ] functie voor verwijderen van mensen uit je playlist

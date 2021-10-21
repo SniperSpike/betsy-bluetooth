@@ -108,3 +108,17 @@ export const setColorPalette = (payload) => {
     payload,
   };
 };
+
+export const selectedPlaylist = (payload) => {
+  return {
+    type: "selectedPlaylist",
+    payload,
+  };
+};
+
+export const setPlaylistId = (payload) => {
+  return {
+    type: "setPlaylistId",
+    payload,
+  };
+};

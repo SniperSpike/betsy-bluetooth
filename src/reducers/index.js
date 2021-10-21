@@ -12,12 +12,16 @@ import isShuffled from "./isShuffled";
 import isLooping from "./isLooping";
 import colorPalette from "./colorPalette";
 import volumeReducer from "./volume";
+import selected from "./selectedPlaylist";
+import setPlaylistId from "./setPlaylistId";
 
 const allReducers = combineReducers({
   playlist: setPlaylist,
   token: tokenReducer,
+  playlistId: setPlaylistId,
   songId: videoIdReducer,
   volume: volumeReducer,
+  selectedPlaylist: selected,
   isPaused,
   isShuffled,
   isLooping,

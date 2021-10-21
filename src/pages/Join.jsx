@@ -177,6 +177,7 @@ const Join = () =>{
       }
     });
   
+
     return (
         <div className="container">
         <form className="party-form">

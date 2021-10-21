@@ -4,7 +4,12 @@ import logo from "../../images/trekker.png";
 import CloseIcon from "@material-ui/icons/Close";
 import { KeyboardArrowLeft } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { setSearchValue, setSearchResults } from "../../actions";
+import {
+  setSearchValue,
+  setSearchResults,
+  selectedPlaylist,
+  setPlaylistId,
+} from "../../actions";
 
 const API_KEY = "AIzaSyDDRrKbPOjqy7r1VnoGjpKOhq7g7ZCNtjE";
 
@@ -100,10 +105,24 @@ const Header = (props) => {
   //   }
   // };
 
+  const returnToHome = () => {
+    if (props.page === "home") {
+      dispatch(selectedPlaylist([]));
+      dispatch(setPlaylistId(""));
+
+      const homepage = document.querySelector(".homepage");
+      const playlistInfo = document.querySelector(".playlistInfo");
+      playlistInfo.style.display = "none";
+      homepage.style.display = "block";
+    } else {
+      window.location.href = "/home";
+    }
+  };
+
   const renderLogo = () => {
     if (props.type === "desktop") {
       return (
-        <div className={`logo`}>
+        <div onClick={() => returnToHome()} className={`logo`}>
           <img className="logo-icon" src={logo} alt="betsy" />
           <span>Music</span>
         </div>
