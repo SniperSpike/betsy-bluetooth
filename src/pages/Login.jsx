@@ -10,7 +10,6 @@ const Login = () =>{
     const dispatch = useDispatch();
     const signInWithGoogle = () => {
         const provider = new GoogleAuthProvider(firebase);
-        provider.addScope("https://www.googleapis.com/auth/youtube.readonly");
         signInWithPopup(auth, provider).then((result) => {
             // The signed-in user info.
             const user = result.user;
