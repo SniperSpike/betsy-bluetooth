@@ -1585,6 +1585,10 @@ iframe {
   .playlistBox {
     margin-bottom: 2em;
   }
+  .playlistItem__overlay {
+    width: 160px;
+    height: 160px;
+  }
   .browser-search {
     z-index: -1;
   }
