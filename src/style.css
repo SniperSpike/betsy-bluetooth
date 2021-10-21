@@ -575,6 +575,11 @@ input[type="text"]:disabled {
   color: white;
 }
 
+.deleteBtn {
+  color: rgb(65, 65, 65) !important;
+  background: rgba(19, 19, 19, 0.719) !important;
+}
+
 /* videoRow */
 .videoRow {
   display: flex;

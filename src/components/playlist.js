@@ -5,10 +5,13 @@ import { uuid } from "uuidv4";
 import PlaylistItem from "./playlistItem";
 import { IconButton } from "@material-ui/core";
 import {
+  Delete,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   VerifiedUserTwoTone,
 } from "@material-ui/icons";
+import { db } from "../firebase";
+import { deleteDoc, doc } from "@firebase/firestore";
 
 const Playlist = (props) => {
   const user = useSelector((state) => state.user);
@@ -91,14 +94,41 @@ const Playlist = (props) => {
       });
   };
 
+  const deletePlaylist = async (id) => {
+    if (window.confirm("Are you sure you want to remove this playlist?")) {
+      await deleteDoc(doc(db, "recommended", id));
+    }
+  };
+
   return (
     <div className=" container playlistBox">
       <div className="playlistBox__info">
         <img src={image} alt="profilepicture" />
-        <div>
-          <h2 style={{ color: "white", fontWeight: "bold" }}>
-            {channelName} {isVerified ? <VerifiedUserTwoTone /> : <></>}
-          </h2>
+        <div style={{ width: "100%" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h2 style={{ color: "white", fontWeight: "bold" }}>
+              {channelName} {isVerified ? <VerifiedUserTwoTone /> : <></>}
+            </h2>
+            {user.uid === "NiT7Oc8FAvRUwnxX62kenCrsBAw1" ? (
+              <>
+                <IconButton
+                  className="deleteBtn"
+                  onClick={() => deletePlaylist(channelId)}
+                >
+                  <Delete />
+                </IconButton>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
           <span
             style={{
               color: "#9E9E9E",

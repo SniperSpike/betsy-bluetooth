@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from '@firebase/auth';
 import { collection, onSnapshot, query} from '@firebase/firestore';
 import React, {useEffect, useState} from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../actions';
 // import Footer from '../components/layout/footer';
 import Header from '../components/layout/header'
@@ -13,11 +13,11 @@ import $ from 'jquery';
 const Home = () => {
 
     const dispatch = useDispatch();
-    const userToken = useSelector((state) => state.user);
     const [playlist, setPlaylist] = useState([]);
     const [recommended, setRecommended] = useState([]);
     const [used, setUsed] = useState([]);
     const [scrollLock, setScrollLock] = useState(false);
+    const [initial, setInitial] = useState(false);
 
     useEffect(() => {
         onSnapshot(
@@ -30,6 +30,7 @@ const Home = () => {
                     items.push(doc.data());
                 });
                 setPlaylist(items);
+                setInitial(true);
                 $('.load').click();
                 $('.load').click();
             }
@@ -70,19 +71,16 @@ const Home = () => {
         }
     }
 
-    $(window).scroll(function() {
+     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() === $(document).height()) {
-            if(!scrollLock){
-                $('.load').click();
-            }
+            $('.load').click();
         }
      });
-
     
 
     return (
         <div style={{display: "flex", flexDirection:"column"}}>
-            <div className={`overlay`} style={userToken ? {opacity: 0} : null}>
+            <div className={`overlay`} style={initial ? {opacity: 0} : null}>
                 <div className="spinner-border mainspinner" role="status"></div>
             </div>
             <div>

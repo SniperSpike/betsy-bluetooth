@@ -3,7 +3,12 @@ import React from "react";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import Login from "./pages/Login";
@@ -20,7 +25,6 @@ function App(params) {
   if (getUser !== user) {
     if (user !== null) {
       dispatch(setUser(user));
-      console.log(user);
     }
   }
 
@@ -34,7 +38,7 @@ function App(params) {
             </Route>
           ) : (
             <Route exact path="/">
-              <Join />
+              <Redirect to="/home" />
             </Route>
           )}
           {!user ? (
@@ -42,8 +46,8 @@ function App(params) {
               <Login />
             </Route>
           ) : (
-            <Route exact path="/">
-              <Join />
+            <Route exact path="/login">
+              <Redirect to="/home" />
             </Route>
           )}
           <Route exact path="/home" component={Home}></Route>
