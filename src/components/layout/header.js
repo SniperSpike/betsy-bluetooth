@@ -3,7 +3,7 @@ import $ from "jquery";
 import Cookies from 'universal-cookie'
 import logo from "../../images/trekker.png";
 import CloseIcon from "@material-ui/icons/Close";
-import { CastConnected, Home, KeyboardArrowLeft, LibraryMusic, Search } from "@material-ui/icons";
+import { ArrowLeft, CastConnected, Home, KeyboardArrowLeft, LibraryMusic, Search } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setSearchValue,
@@ -113,6 +113,12 @@ const Header = (props) => {
     }
   };
 
+  const closeSearch = () => {
+    setToggleSearch(false);
+    dispatch(setSearchResults([]));
+    dispatch(setSearchValue(""));
+  }
+
   return (
     <header id="searchBar">
       <nav id="search-nav">
@@ -120,6 +126,7 @@ const Header = (props) => {
         <div className="container-sm">
           {backIcon()}
           <form id="form" onSubmit={sendSearch} className={toggleSearch ? "" : "hidden"}>
+            <ArrowLeft onClick={() => closeSearch()}/>
             <div className="searchBarInput">
               <input
                 id="search"
