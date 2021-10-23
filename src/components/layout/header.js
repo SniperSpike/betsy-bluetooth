@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import $ from "jquery";
+import Cookies from 'universal-cookie'
 import logo from "../../images/trekker.png";
 import CloseIcon from "@material-ui/icons/Close";
-import { KeyboardArrowLeft } from "@material-ui/icons";
+import { CastConnected, Home, KeyboardArrowLeft, LibraryMusic, Search } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setSearchValue,
@@ -17,7 +18,11 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const value = useSelector((state) => state.search);
-  const token = useSelector((state) => state.token);
+  // const token = useSelector((state) => state.token);
+  const [toggleSearch, setToggleSearch] = useState(false);
+
+  const cookies = new Cookies();
+  const cookieToken = cookies.get('recent-token');
 
   const sendSearch = async (e) => {
     e.preventDefault();
@@ -29,81 +34,9 @@ const Header = (props) => {
       `https://www.googleapis.com/youtube/v3/search?key=${key}&type=video&part=snippet&maxResults=${maxResults}&q=${search}`,
       function (data) {
         dispatch(setSearchResults(data.items));
-        // data.items.forEach((item) => {
-        //   let video = (
-        //     <SearchItem
-        //       key={uuid}
-        //       dataUrl={item.id.videoId}
-        //       image={item.snippet.thumbnails.default.url}
-        //       title={item.snippet.title}
-        //       disc={item.snippet.channelTitle}
-        //     />
-        //   );
-        //   let video = `
-        //     <div class="searchItem" data-url="${item.id.videoId}">
-        //         <img src="${item.snippet.thumbnails.default.url}"/>
-        //         <div class="searchInfo">
-        //             <p class="searchTitle">${item.snippet.title}</p>
-        //             <span class="searchDisc">Video • ${item.snippet.channelTitle}</span>
-        //         </div>
-        //     </div>
-        //     `;
-        //   $("#album").append(video);
-        //   $("#mobielResults").append(video);
-        // });
       }
     );
   };
-
-  // const addSong = (songId) => {
-  //   const { uid } = auth.currentUser;
-  //   let duration;
-  //   if (isAddingSong === false) {
-  //     dispatch(isAddingSongToggle(true));
-  //     $.get(
-  //       `https://www.googleapis.com/youtube/v3/videos?id=${songId}&part=contentDetails&key=${API_KEY}`,
-  //       function (data) {
-  //         data.items.forEach((item) => {
-  //           let total = item.contentDetails.duration;
-  //           duration = total;
-  //         });
-  //       }
-  //     );
-  //     console.log(duration);
-  //     $.get(
-  //       `https://www.googleapis.com/youtube/v3/videos?id=${songId}&part=snippet&key=${API_KEY}`,
-  //       function (data2) {
-  //         // console.log(data2);
-  //         // data2.items.forEach((item) => {
-  //         //   let title = item.snippet.title;
-  //         //   let artist = item.snippet.channelTitle;
-  //         //   let photoURL = item.snippet.thumbnails.default.url;
-  //         //   firestore
-  //         //     .collection("playlist")
-  //         //     .where("token", "==", token)
-  //         //     .onSnapshot(async (res) => {
-  //         //       res.forEach((doc) => {
-  //         //         let queueRef = firestore.collection(
-  //         //           `${doc.ref.path}/queue`
-  //         //         );
-  //         //         queueRef.doc(songId.replace(/-|_/g, "")).set({
-  //         //           token,
-  //         //           songId: songId,
-  //         //           title,
-  //         //           artist,
-  //         //           photoURL,
-  //         //           duration,
-  //         //           uid,
-  //         //           createdAt:
-  //         //             firebase.firestore.FieldValue.serverTimestamp(),
-  //         //         });
-  //         //       });
-  //         //     });
-  //         // });
-  //       }
-  //     );
-  //   }
-  // };
 
   const returnToHome = () => {
     if (props.page === "home") {
@@ -119,10 +52,15 @@ const Header = (props) => {
     }
   };
 
+  const both = () =>{
+    setToggleSearch(false);
+    returnToHome();
+  }
+
   const renderLogo = () => {
     if (props.type === "desktop") {
       return (
-        <div onClick={() => returnToHome()} className={`logo`}>
+        <div onClick={() => both()} className={`logo`}>
           <img className="logo-icon" src={logo} alt="betsy" />
           <span>Music</span>
         </div>
@@ -147,6 +85,25 @@ const Header = (props) => {
     $("#search").focus();
   };
 
+  const goHome = () => {
+    if(props.page !== "home"){
+      window.location.href = "/home"
+    }
+  }
+  
+  const goJoin = () => {
+    if(props.page !== "join"){
+      window.location.href = "/join";
+    }
+  }
+
+  const goParty = (token) => {
+    if(props.page !== token){
+      window.location.href = `/${token}`;
+    }
+   
+  }
+
   const searchChange = (e) => {
     dispatch(setSearchValue(e.target.value));
     if (e.target.value.length !== 0) {
@@ -156,21 +113,13 @@ const Header = (props) => {
     }
   };
 
-  // $(function () {
-  //   $(document).on("click", ".searchItem", function (e) {
-  //     let yt = $(this).attr("data-url");
-  //     // addSong(yt);
-  //     console.log("dit");
-  //   });
-  // });
-
   return (
     <header id="searchBar">
       <nav id="search-nav">
         {renderLogo()}
         <div className="container-sm">
           {backIcon()}
-          <form id="form" onSubmit={sendSearch}>
+          <form id="form" onSubmit={sendSearch} className={toggleSearch ? "" : "hidden"}>
             <div className="searchBarInput">
               <input
                 id="search"
@@ -188,14 +137,21 @@ const Header = (props) => {
               />
             </div>
           </form>
+          <ul className={toggleSearch ? "hidden" : "navbar"}>
+            <li className="active" onClick={() => goHome()}><Home className="nav-icons"/>Home</li>
+            <li onClick={() => goJoin()}  className={cookieToken ? "hidden" : ""}><CastConnected className="nav-icons"/>Join</li>
+            <li onClick={() => goParty(cookieToken)} className={cookieToken ? "tokenli" : "hidden"}>{cookieToken}</li>
+            <li><LibraryMusic className="nav-icons"/>Library</li>
+            <li onClick={() => setToggleSearch(!toggleSearch)}><Search/> Search</li>
+          </ul>
         </div>
         <div className="account">
           <img src={user.photoURL} alt="profile" referrerPolicy="no-referrer" />
         </div>
       </nav>
-      <nav id="invite-nav">
+      {/* <nav id="invite-nav">
         <p>{token}</p>
-      </nav>
+      </nav> */}
     </header>
   );
 };

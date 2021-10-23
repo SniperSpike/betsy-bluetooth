@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Cookies from 'universal-cookie'
 import  { db, auth } from '../firebase';
 import Player from '../components/player';
 import Header from '../components/layout/header';
@@ -14,6 +15,9 @@ const settings = {
 }
   
 const Search = (match) =>{
+
+    const cookies = new Cookies();
+    const cookieToken = cookies.get('recent-token');
     const dispatch = useDispatch();
     const [tokenKey, setTokenKey] = useState(false);
     token = match.match.params.token;
@@ -56,7 +60,7 @@ const Search = (match) =>{
                 <div className="spinner-border mainspinner" role="status"></div>
             </div>
             <div id="SearchPage" className={tokenKey ? null : 'hidden'}>
-                <Header type="desktop"/>
+                <Header type="desktop" page={`${cookieToken}`}/>
                 <Player token={token}/>
                 <Footer />
             </div>

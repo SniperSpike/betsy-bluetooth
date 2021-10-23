@@ -10,6 +10,7 @@ import { PlayArrow } from '@material-ui/icons';
 import { useDispatch } from "react-redux";
 import { setToken } from '../actions'
 import { collection, doc, getDocs, query, setDoc, where } from '@firebase/firestore';
+import Header from '../components/layout/header';
 
 const cookies = new Cookies();
 
@@ -179,7 +180,9 @@ const Join = () =>{
   
 
     return (
-        <div className="container">
+      <>
+        <Header type="desktop" page="join"/>
+        <div className="container fix-nav">
         <form className="party-form">
             <div className="token-container">
             <h1>BETSY'S MEDIASHARE PLAYLIST</h1>
@@ -203,6 +206,7 @@ const Join = () =>{
           <PlayArrow className="playarrow"/>
         </div>
         </div>
+      </>
     )
 }
 

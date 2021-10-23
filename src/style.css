@@ -123,12 +123,41 @@ body {
   position: fixed;
   width: 100%;
   z-index: 500;
+  height: 60px;
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+}
+
+.navbar > .active {
+  color: white;
+}
+
+.navbar li {
+  color: #818181;
+  font-weight: bold;
+  list-style-type: none;
+  font-size: 1.2rem;
+  margin-inline: 2em;
+}
+
+.navbar li:hover {
+  color: white;
+  cursor: pointer;
 }
 
 #search-nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 60px;
 
   width: 100%;
   /* background-color: var(--searchbar-color); */
@@ -443,7 +472,7 @@ input:focus {
 }
 
 .overlay {
-  background-color: rgb(12, 12, 12);
+  background-color: #030303;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -464,6 +493,10 @@ input:focus {
 
 input[type="text"]:disabled {
   background-color: white !important;
+}
+
+.nav-icons {
+  display: none !important;
 }
 
 .controller {
@@ -620,7 +653,7 @@ input[type="text"]:disabled {
 
 /* queue page */
 .fix-nav {
-  padding-top: 90px;
+  padding-top: 80px;
 }
 
 #media-player {
@@ -1149,6 +1182,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 .scrollbox {
   overflow: scroll;
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
 }
 
 .tableItem {
@@ -1449,26 +1484,26 @@ iframe {
 /* media queries */
 @media only screen and (max-width: 1600px) {
   #album {
-    margin: 2rem 5rem;
+    margin: 0rem 5rem;
   }
   #queue {
-    margin: 2rem 6rem 2rem 0;
+    margin: 0rem 6rem;
   }
 }
 @media only screen and (max-width: 1500px) {
   #album {
-    margin: 2rem 4rem;
+    margin: 0rem 4rem;
   }
   #queue {
-    margin: 2rem 4rem 2rem 0;
+    margin: 0rem 4rem;
   }
 }
 @media only screen and (max-width: 1400px) {
   #album {
-    margin: 2rem 3rem;
+    margin: 0rem 3rem;
   }
   #queue {
-    margin: 2rem 3rem 2rem 0;
+    margin: 0rem 3rem;
   }
 }
 @media only screen and (max-width: 975px) {
@@ -1640,6 +1675,30 @@ iframe {
     width: 100%;
     height: 0;
     flex: 1;
+    margin: 0;
+  }
+
+  .infoContainer__title {
+    font-size: 1.5em;
+  }
+  .infoContainer__data,
+  .infoContainer__disc {
+    font-size: 0.8em;
+  }
+
+  .navbar {
+    justify-content: space-evenly;
+  }
+
+  .navbar li {
+    font-size: 0;
+  }
+
+  .nav-icons {
+    display: block !important;
+  }
+  .tokenli {
+    font-size: 1rem !important;
   }
 }
 @media only screen and (max-width: 615px) {
@@ -1651,6 +1710,6 @@ iframe {
     padding-top: 159px;
   }
   #queue {
-    margin: 3em 0em;
+    margin: 0em 0em;
   }
 }
