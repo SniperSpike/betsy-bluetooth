@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import $ from "jquery";
-import { MoreVert, Queue, Shuffle } from "@material-ui/icons";
+import { MoreVert, Shuffle } from "@material-ui/icons";
 import { useSelector } from "react-redux";
 import AddToLib from "./addToLib";
 
