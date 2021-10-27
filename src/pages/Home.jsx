@@ -89,14 +89,6 @@ const Home = () => {
                         return(<Playlist subs="" user={item.name} isVerified={true} channelId={item.channelId}/>);
                     })}
                     <button className="load" style={{opacity: 0, width: "1px", height: "1px"}} onClick={() => scrollLoad()}></button>
-                    {/* <Playlist type="library" /> */}
-                    {/* <Playlist subs="658K" user="Dirty Workz" isVerified={true} channelId="UCt8hUmML7zjM6effdZ3Ip5A"/>
-                    <Playlist subs="2.64M" user="Radiohead" isVerified={true} channelId="UCq19-LqvG35A-30oyAiPiqA"/>
-                    <Playlist subs="31.3M" user="NoCopyrightSounds" isVerified={true} channelId="UC_aEa8K-EOJ3D6gOs7HcyNg"/>
-                    <Playlist subs="9.32M" user="Lofi Girl" isVerified={true} channelId="UCSJ4gkVC6NrvII8umztf0Ow"/>
-                    <Playlist subs="1.5M" user="the bootleg boy 2" isVerified={true} channelId="UCwkTfp14Sj7o6q9_8ADJpnA"/>
-                    <Playlist subs="8.37M" user="AC/DC" isVerified={true} channelId="UCB0JSO6d5ysH2Mmqz5I9rIw" /> */}
-                    {/* <Playlist subs="10" user="Torretto" isVerified={false} channelId="UC1yJ_8WU1Abdw161j2ld4EQ" /> */}
                     {scrollLock ? <div className="homespinner"><div className="spinner-border" role="status"></div></div> : <></>}
                 </div>
                 <PlaylistInfo/>

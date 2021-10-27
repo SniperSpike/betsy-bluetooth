@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import $ from "jquery";
 import { MoreVert, Queue, Shuffle } from "@material-ui/icons";
 import { useSelector } from "react-redux";
+import AddToLib from "./addToLib";
 
 const InfoCard = () => {
   const data = useSelector((state) => state.selectedPlaylist);
@@ -42,10 +43,7 @@ const InfoCard = () => {
               <Shuffle />
               SHUFFLE
             </button>
-            <button>
-              <Queue />
-              ADD TO LIBRARY
-            </button>
+            <AddToLib />
             <MoreVert className="right__buttons--morevert" />
           </div>
         </div>
