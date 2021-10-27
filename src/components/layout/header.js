@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import $ from "jquery";
-import Cookies from 'universal-cookie'
 import logo from "../../images/trekker.png";
 import CloseIcon from "@material-ui/icons/Close";
-import { ArrowLeft, CastConnected, Home, KeyboardArrowLeft, LibraryMusic, Search } from "@material-ui/icons";
+import {
+  ArrowLeft,
+  CastConnected,
+  ExitToApp,
+  Home,
+  KeyboardArrowLeft,
+  LibraryMusic,
+  Search,
+} from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
+import Cookies from "universal-cookie";
 import {
   setSearchValue,
   setSearchResults,
   selectedPlaylist,
   setPlaylistId,
 } from "../../actions";
+import { auth } from "../../firebase";
 
 const API_KEY = "AIzaSyDDRrKbPOjqy7r1VnoGjpKOhq7g7ZCNtjE";
 
@@ -20,9 +29,11 @@ const Header = (props) => {
   const value = useSelector((state) => state.search);
   // const token = useSelector((state) => state.token);
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [accountToggle, setAcountToggle] = useState(false);
 
   const cookies = new Cookies();
-  const cookieToken = cookies.get('recent-token');
+  const cookieToken = cookies.get("recent-token");
+  const issetToken = cookies.get("recent-token") ? "" : "hidden";
 
   const sendSearch = async (e) => {
     e.preventDefault();
@@ -52,10 +63,10 @@ const Header = (props) => {
     }
   };
 
-  const both = () =>{
+  const both = () => {
     setToggleSearch(false);
     returnToHome();
-  }
+  };
 
   const renderLogo = () => {
     if (props.type === "desktop") {
@@ -86,23 +97,22 @@ const Header = (props) => {
   };
 
   const goHome = () => {
-    if(props.page !== "home"){
-      window.location.href = "/home"
+    if (props.page !== "home") {
+      window.location.href = "/home";
     }
-  }
-  
+  };
+
   const goJoin = () => {
-    if(props.page !== "join"){
+    if (props.page !== "join") {
       window.location.href = "/join";
     }
-  }
+  };
 
   const goParty = (token) => {
-    if(props.page !== token){
+    if (props.page !== token) {
       window.location.href = `/${token}`;
     }
-   
-  }
+  };
 
   const searchChange = (e) => {
     dispatch(setSearchValue(e.target.value));
@@ -113,11 +123,20 @@ const Header = (props) => {
     }
   };
 
+  const removeCookies = () => {
+    cookies.remove("recent-token");
+    window.location.href = "/home";
+  };
+
+  const logout = () => {
+    auth.signOut();
+  };
+
   const closeSearch = () => {
     setToggleSearch(false);
     dispatch(setSearchResults([]));
     dispatch(setSearchValue(""));
-  }
+  };
 
   return (
     <header id="searchBar">
@@ -125,8 +144,12 @@ const Header = (props) => {
         {renderLogo()}
         <div className="container-sm">
           {backIcon()}
-          <form id="form" onSubmit={sendSearch} className={toggleSearch ? "" : "hidden"}>
-            <ArrowLeft onClick={() => closeSearch()}/>
+          <form
+            id="form"
+            onSubmit={sendSearch}
+            className={toggleSearch ? "" : "hidden"}
+          >
+            <ArrowLeft onClick={() => closeSearch()} />
             <div className="searchBarInput">
               <input
                 id="search"
@@ -145,15 +168,57 @@ const Header = (props) => {
             </div>
           </form>
           <ul className={toggleSearch ? "hidden" : "navbar"}>
-            <li className="active" onClick={() => goHome()}><Home className="nav-icons"/>Home</li>
-            <li onClick={() => goJoin()}  className={cookieToken ? "hidden" : ""}><CastConnected className="nav-icons"/>Join</li>
-            <li onClick={() => goParty(cookieToken)} className={cookieToken ? "tokenli" : "hidden"}>{cookieToken}</li>
-            <li><LibraryMusic className="nav-icons"/>Library</li>
-            <li onClick={() => setToggleSearch(!toggleSearch)}><Search/> Search</li>
+            <li className="active" onClick={() => goHome()}>
+              <Home className="nav-icons" />
+              Home
+            </li>
+            <li
+              onClick={() => goJoin()}
+              className={cookieToken ? "hidden" : ""}
+            >
+              <CastConnected className="nav-icons" />
+              Join
+            </li>
+            <li
+              onClick={() => goParty(cookieToken)}
+              className={cookieToken ? "tokenli" : "hidden"}
+            >
+              {cookieToken}
+            </li>
+            <li>
+              <LibraryMusic className="nav-icons" />
+              Library
+            </li>
+            <li onClick={() => setToggleSearch(!toggleSearch)}>
+              <Search /> Search
+            </li>
           </ul>
         </div>
         <div className="account">
-          <img src={user.photoURL} alt="profile" referrerPolicy="no-referrer" />
+          <img
+            src={user.photoURL}
+            alt="profile"
+            referrerPolicy="no-referrer"
+            onClick={() => setAcountToggle(!accountToggle)}
+          />
+          <div className={accountToggle ? "accountSettings" : "hidden"}>
+            <div className="accountSettings__userInfo">
+              <img
+                src={user.photoURL}
+                alt="profile"
+                referrerPolicy="no-referrer"
+              />
+              <span>Slimper</span>
+            </div>
+            <ul className="accountSettings__ul">
+              <li onClick={() => removeCookies()} className={issetToken}>
+                <ExitToApp /> Leave party
+              </li>
+              <li onClick={() => logout()}>
+                <ExitToApp /> Sign out
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
       {/* <nav id="invite-nav">
