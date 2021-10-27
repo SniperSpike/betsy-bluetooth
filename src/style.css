@@ -1530,12 +1530,11 @@ iframe {
 }
 @media only screen and (max-width: 975px) {
   #queue {
-    margin-top: 10em !important;
+    /* margin-top: 10em !important; */
     z-index: 1000;
   }
   #album {
     background-color: var(--blue-1);
-    position: absolute;
   }
   #invite-nav {
     background-color: var(--blue-dark);
