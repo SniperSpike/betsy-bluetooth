@@ -63,9 +63,7 @@ const Join = () =>{
 
       dispatch(setToken(result));
       window.location.href = `/${result}`;
-      let d = new Date();
-      d.setTime(d.getTime() + (24*60*60*1000));
-      cookies.set("recent-token", result, {path: "/" , expires: d})
+      
     }
     
     const auth = getAuth();
