@@ -1,11 +1,6 @@
 {
-  "theme_color": "#FF3533",
-  "background_color": "#030303",
-  "display": "standalone",
-  "scope": ".",
-  "start_url": ".",
-  "name": "Betsy Music",
   "short_name": "Betsy Music",
+  "name": "Betsy Music Mediashare",
   "description": "A multiplayer playlist for youtube.",
   "icons": [
     {
@@ -23,5 +18,9 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ]
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#FF3533",
+  "background_color": "#030303"
 }
