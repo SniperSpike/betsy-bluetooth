@@ -22,7 +22,6 @@ function App(params) {
   const dispatch = useDispatch();
   const getUser = useSelector((state) => state.user);
   const [user] = useAuthState(auth);
-  let deferredPrompt;
   if (getUser !== user) {
     if (user !== null) {
       dispatch(setUser(user));
