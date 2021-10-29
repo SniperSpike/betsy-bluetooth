@@ -197,11 +197,52 @@ body {
 }
 
 .account {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 1.7em;
   cursor: pointer;
+}
+.accountSettings{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #212121;
+  width: 300px;
+  height: auto;
+  right: 0;
+  top: 2.6em;
+  border: 1px solid #383838;
+}
+.accountSettings__userInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  border-bottom: 1px solid #383838;
+}
+.accountSettings__userInfo img{
+  width: 40px !important;
+  height: 40px !important;
+  margin: 1em;
+}
+.accountSettings__ul{
+  list-style-type: none;
+  margin-top: 0.5em;
+}
+.accountSettings__ul li{
+  color: white;
+  padding: 0.6em 0em;
+  font-size: 0.9em;
+}
+.accountSettings__ul li:hover{
+  background-color: #383838;
+}
+.accountSettings__ul li > svg{
+  margin-inline: 0.6em;
+  color: #AAAAAA;
 }
 
 .account img {
@@ -1492,6 +1533,11 @@ iframe {
   width: 100%;
   /* z-index: 9000; */
   margin: 0em;
+}
+
+ol, ul {
+  padding-left: 0rem
+;
 }
 
 .searchItem {
