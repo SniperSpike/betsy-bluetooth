@@ -236,6 +236,7 @@ body {
   color: white;
   padding: 0.6em 0em;
   font-size: 0.9em;
+  display: block !important;
 }
 .accountSettings__ul li:hover{
   background-color: #383838;
@@ -1008,6 +1009,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 3em;
   overflow: hidden;
   text-align: center;
+  flex-shrink: 0;
   /* margin-right: 1.5em; */
 }
 
@@ -1356,6 +1358,7 @@ iframe {
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 10;
+  width: 70vw;
 }
 
 .details-title {
@@ -1391,6 +1394,7 @@ iframe {
   flex: 1;
   color: #888;
   font-weight: bold;
+  flex-shrink: 0;
 }
 
 .details-btn > svg {
