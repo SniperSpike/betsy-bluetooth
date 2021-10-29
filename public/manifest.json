@@ -1,13 +1,18 @@
 {
   "theme_color": "#FF3533",
   "background_color": "#030303",
-  "display": "browser",
+  "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": ".",
   "name": "Betsy Music",
   "short_name": "Betsy Music",
   "description": "A multiplayer playlist for youtube.",
   "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
     {
       "src": "/icon-192x192.png",
       "sizes": "192x192",
