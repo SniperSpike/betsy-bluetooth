@@ -1358,7 +1358,7 @@ iframe {
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 10;
-  width: 70vw;
+
 }
 
 .details-title {
@@ -1559,7 +1559,7 @@ ol, ul {
     margin: 0rem 5rem;
   }
   #queue {
-    margin: 0rem 6rem;
+    margin: 0rem 0rem;
   }
 }
 @media only screen and (max-width: 1500px) {
@@ -1567,7 +1567,7 @@ ol, ul {
     margin: 0rem 4rem;
   }
   #queue {
-    margin: 0rem 4rem;
+    margin: 0rem 0rem;
   }
 }
 @media only screen and (max-width: 1400px) {
@@ -1575,13 +1575,16 @@ ol, ul {
     margin: 0rem 3rem;
   }
   #queue {
-    margin: 0rem 3rem;
+    margin: 0rem 0rem;
   }
 }
 @media only screen and (max-width: 975px) {
   #queue {
     /* margin-top: 10em !important; */
     z-index: 1000;
+  }
+  body{
+    overflow: hidden;
   }
   #album {
     background-color: var(--blue-1);
@@ -1608,6 +1611,7 @@ ol, ul {
   } */
   .viewport-hidden {
     display: block;
+    aspect-ratio: 16/9;
   }
   .queue-balk {
     display: block;
@@ -1619,12 +1623,16 @@ ol, ul {
     margin: 0;
     padding: 0;
     aspect-ratio: 16/9;
+    position: fixed;
   }
   #queue-list-title {
     padding: 1em;
   }
   .details-btn {
     margin: 0.4em 0em 0.4em 0.4em;
+  }
+  .details-inner{
+    width: 70vw;
   }
   #album-player {
     padding: 1em 2em;
