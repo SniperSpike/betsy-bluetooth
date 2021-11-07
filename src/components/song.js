@@ -8,9 +8,9 @@ import {
   MoreVert,
 } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { isPausedToggle, setSong } from "../actions";
+import { isPausedToggle, setCurrentlyPlaying, setSong } from "../actions";
 import { YTDurationToSeconds, secondsToHms } from "./global";
-import { deleteDoc, doc } from "@firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import { IconButton } from "@material-ui/core";
 
 function resize_to_fit() {
@@ -33,6 +33,8 @@ const Song = (props) => {
   const dispatch = useDispatch();
   const paused = useSelector((state) => state.isPaused);
   const token = useSelector((state) => state.token);
+  const remoteControl = useSelector((state) => state.remoteControl);
+  const currentlyPlaying = useSelector((state) => state.currentSelected);
 
   const settings = (event) => {
     event.stopPropagation();
@@ -47,7 +49,7 @@ const Song = (props) => {
     }
   };
 
-  const openVideo = (event, ytid, title, artist, duration) => {
+  const openVideo = async (event, ytid, title, artist, duration) => {
     let imgUrl = `https://i.ytimg.com/vi/${ytid}/mqdefault.jpg`;
     $("svg").removeClass("current-equalizer");
     $(".details-left > div").removeClass("currently-playing");
@@ -71,6 +73,12 @@ const Song = (props) => {
       dispatch(isPausedToggle(false));
     }
     dispatch(setSong(youtube_id));
+    dispatch(setCurrentlyPlaying(props.index));
+    if (remoteControl) {
+      await updateDoc(doc(db, "playlist", token), {
+        currentlyPlaying: props.index,
+      });
+    }
   };
 
   const duration = secondsToHms(parseInt(YTDurationToSeconds(props.time)));

@@ -19,39 +19,12 @@ import Home from "./pages/Home";
 import Add from "./pages/Add";
 
 function App(params) {
-  const dispatch = useDispatch();
-  const getUser = useSelector((state) => state.user);
-  const [user] = useAuthState(auth);
-  if (getUser !== user) {
-    if (user !== null) {
-      dispatch(setUser(user));
-    }
-  }
-
   return (
     <Router>
       <div className="App">
         <Switch>
-          {!user ? (
-            <Route exact path="/">
-              <Login />
-            </Route>
-          ) : (
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-          )}
-          {!user ? (
-            <Route exact path="/login">
-              <Login />
-            </Route>
-          ) : (
-            <Route exact path="/login">
-              <Redirect to="/home" />
-            </Route>
-          )}
-          <Route exact path="/home" component={Home}></Route>
-          <Route exact path="/home/add" component={Add}></Route>
+          <Route exact path="/" component={Home}></Route>
+          <Route exact path="/add" component={Add}></Route>
           <Route path="/join" exact component={Join}></Route>
           <Route path="/:token" component={Search}></Route>
         </Switch>

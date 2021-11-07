@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
-import Header from "./layout/header.js";
 import $ from "jquery";
 import Song from "./song";
 import Ytplayer from "./ytplayer";
 import { db } from "../firebase";
+import Cookies from "universal-cookie";
 import Search from "../components/search";
 import { useDispatch, useSelector } from "react-redux";
 import FlipMove from "react-flip-move";
 import Favorite from "./favorite";
-import { setPlaylist } from "../actions/index.js";
+import { setPlaylist, setRemoteControl } from "../actions/index.js";
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
+import { Switch } from "@material-ui/core";
 
 function Player(props) {
   const dispatch = useDispatch();
   const playlist = useSelector((state) => state.playlist);
+  const remoteControl = useSelector((state) => state.remoteControl);
+  const cookies = new Cookies();
+  const toggleState = cookies.get("RemoteControl");
 
   useEffect(() => {
     onSnapshot(
@@ -66,6 +70,20 @@ function Player(props) {
     event.currentTarget.classList.add("active");
   }
 
+  function toggleRemote() {
+    // dispatch(setRemoteControl(!remoteControl));
+    let d = new Date();
+    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
+    cookies.remove("RemoteControl");
+    cookies.set("RemoteControl", !remoteControl, { path: "/", expires: d });
+
+    if (!remoteControl) {
+      console.log("remote is on");
+    } else {
+      console.log("remote is off");
+    }
+  }
+
   if (playlist === undefined) {
     return <></>;
   } else {
@@ -79,7 +97,7 @@ function Player(props) {
           </div>
         </div>
         <div id="queue">
-          <div className="viewport-hidden"></div>
+          {/* <div className="viewport-hidden"></div> */}
           <nav>
             <div id="queue-buttons">
               <button
@@ -99,12 +117,30 @@ function Player(props) {
 
           <div id="queue-list" className={btnToggle ? "hidden" : ""}>
             <FlipMove maintainContainerHeight="true" className="queue-items">
+              <div className="queue-options">
+                <div className="queue-options__details">
+                  <span>Remote control</span>
+                  <span>
+                    Enable remote control on the host device to make this
+                    feature work.
+                  </span>
+                </div>
+                {toggleState === true ? (
+                  <Switch
+                    disabled
+                    defaultChecked
+                    onClick={() => toggleRemote()}
+                  />
+                ) : (
+                  <Switch disabled onClick={() => toggleRemote()} />
+                )}
+              </div>
               {playlist.map((item, index) => {
                 return (
                   <div key={item.songId}>
                     <Song
                       key={item.songId}
-                      index={index + 1}
+                      index={index}
                       ytid={item.songId}
                       artist={item.artist}
                       title={item.title}
@@ -122,12 +158,6 @@ function Player(props) {
           </div>
           <div id="favorite" className={btnToggle ? "" : "hidden"}>
             <Favorite />
-          </div>
-        </div>
-        <div id="searchPopup">
-          <Header type="mobiel" />
-          <div id="mobielResults" className="fix-nav">
-            <Search />
           </div>
         </div>
       </div>

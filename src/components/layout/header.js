@@ -18,8 +18,15 @@ import {
   setSearchResults,
   selectedPlaylist,
   setPlaylistId,
+  setUser,
 } from "../../actions";
 import { auth } from "../../firebase";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "@firebase/auth";
+import { firebase } from "../../firebase";
 
 const API_KEY = "AIzaSyDDRrKbPOjqy7r1VnoGjpKOhq7g7ZCNtjE";
 
@@ -34,6 +41,28 @@ const Header = (props) => {
   const cookies = new Cookies();
   const cookieToken = cookies.get("recent-token");
   const issetToken = cookies.get("recent-token") ? "" : "hidden";
+
+  const signInWithGoogle = () => {
+    $(".account > button").attr("disabled", true);
+    const provider = new GoogleAuthProvider(firebase);
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        dispatch(setUser(user));
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        $(".account > button").attr("disabled", false);
+      });
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+      dispatch(setUser(user));
+    }
+  });
 
   const sendSearch = async (e) => {
     e.preventDefault();
@@ -98,7 +127,7 @@ const Header = (props) => {
 
   const goHome = () => {
     if (props.page !== "home") {
-      window.location.href = "/home";
+      window.location.href = "/";
     }
   };
 
@@ -133,6 +162,7 @@ const Header = (props) => {
     cookies.remove("recent-token");
     window.location.href = "/home";
   };
+
   const logout = () => {
     auth.signOut();
   };
@@ -194,30 +224,36 @@ const Header = (props) => {
           </ul>
         </div>
         <div className="account">
-          <img
-            src={user.photoURL}
-            alt="profile"
-            referrerPolicy="no-referrer"
-            onClick={() => setAcountToggle(!accountToggle)}
-          />
-          <div className={accountToggle ? "accountSettings" : "hidden"}>
-            <div className="accountSettings__userInfo">
+          {user.length === 0 ? (
+            <button onClick={() => signInWithGoogle()}>INLOGGEN</button>
+          ) : (
+            <>
               <img
                 src={user.photoURL}
                 alt="profile"
                 referrerPolicy="no-referrer"
+                onClick={() => setAcountToggle(!accountToggle)}
               />
-              <span>Slimper</span>
-            </div>
-            <ul className="accountSettings__ul">
-              <li onClick={() => removeCookies()} className={issetToken}>
-                <ExitToApp /> Leave party
-              </li>
-              <li onClick={() => logout()}>
-                <ExitToApp /> Sign out
-              </li>
-            </ul>
-          </div>
+              <div className={accountToggle ? "accountSettings" : "hidden"}>
+                <div className="accountSettings__userInfo">
+                  <img
+                    src={user.photoURL}
+                    alt="profile"
+                    referrerPolicy="no-referrer"
+                  />
+                  <span>Slimper</span>
+                </div>
+                <ul className="accountSettings__ul">
+                  <li onClick={() => removeCookies()} className={issetToken}>
+                    <ExitToApp /> Leave party
+                  </li>
+                  <li onClick={() => logout()}>
+                    <ExitToApp /> Sign out
+                  </li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </nav>
       {/* <nav id="invite-nav">

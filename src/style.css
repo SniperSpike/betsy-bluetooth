@@ -604,6 +604,9 @@ input[type="text"]:disabled {
   margin-inline: 1em;
   line-height: 1.3;
   font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .controller__middle--info span:nth-child(2) {
@@ -743,6 +746,7 @@ input[type="text"]:disabled {
 #player {
   /* height: 169px; */
   aspect-ratio: 16/9;
+  /* padding-top: 56.25%; */
   width: 100%;
   display: block !important;
 }
@@ -967,7 +971,35 @@ input[type="range"]::-webkit-slider-thumb {
   -moz-box-shadow: inset 0 -5px 5px -5px var(--searchbar-border);
   box-shadow: inset 0 -5px 5px -5px var(--searchbar-border);
   padding: 0 0 0 0.6em;
-  overflow-y: hidden;
+  overflow: hidden;
+}
+
+.queue-options{
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  align-items: center;
+  background-color: var(--background-color)
+}
+.queue-options__details{
+  display: flex;
+  flex-direction: column;
+}
+
+.queue-options__details span:nth-child(1){
+  color: white;
+  font-weight: bold;
+}
+
+.queue-options__details span{
+  color: #9A9A9A;
+  font-size: 0.9em;
+}
+.MuiSwitch-track{
+  background-color: gray !important;
+}
+.css-ny5bw0-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
+  background-color: #1976d2 !important;
 }
 /* .queue-song:hover {
   background-color: var(--searchbar-color);
@@ -1583,11 +1615,15 @@ ol, ul {
     /* margin-top: 10em !important; */
     z-index: 1000;
   }
-  body{
+  html,
+  body {
+    position: fixed;
     overflow: hidden;
   }
   #album {
-    background-color: var(--blue-1);
+    position: relative !important;
+    margin-bottom: 56.25% !important;
+    display: block !important;
   }
   #invite-nav {
     background-color: var(--blue-dark);
@@ -1611,7 +1647,8 @@ ol, ul {
   } */
   .viewport-hidden {
     display: block;
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
+    padding-top: 56.25%;
   }
   .queue-balk {
     display: block;
@@ -1622,7 +1659,7 @@ ol, ul {
   #album {
     margin: 0;
     padding: 0;
-    aspect-ratio: 16/9;
+    /* aspect-ratio: 16/9; */
     position: fixed;
   }
   #queue-list-title {
@@ -1721,7 +1758,7 @@ ol, ul {
     height: 160px;
   }
   .queue-items {
-    max-height: calc(50vh + 10px);
+    max-height: calc(50vh + -50px);
   }
   .login {
     width: 100%;

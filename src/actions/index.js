@@ -122,3 +122,17 @@ export const setPlaylistId = (payload) => {
     payload,
   };
 };
+
+export const setRemoteControl = (payload) => {
+  return {
+    type: "setRemoteControl",
+    payload,
+  };
+};
+
+export const setCurrentlyPlaying = (payload) => {
+  return {
+    type: "setCurrentlyPlaying",
+    payload,
+  };
+};

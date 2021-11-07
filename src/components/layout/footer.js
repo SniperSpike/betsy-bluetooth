@@ -20,29 +20,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { isPaused, setVolume } from "../../actions";
 import betsy from "../../images/trekker.png";
 import { db } from "../../firebase";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 const Footer = () => {
   const dispatch = useDispatch();
   const paused = useSelector((state) => state.isPaused);
-  //   const showVid = useSelector((state) => state.showVideo);
   const songId = useSelector((state) => state.songId);
   const playlist = useSelector((state) => state.playlist);
-  //   const isShuffled = useSelector((state) => state.isShuffled);
-  //   const isLooping = useSelector((state) => state.isLooping);
   const token = useSelector((state) => state.token);
   const volume = useSelector((state) => state.volume);
+  const remoteControl = useSelector((state) => state.remoteControl);
 
   const [title, setTitle] = useState("Betsy Bluetooth Mediaplayer");
   const [image, setImage] = useState(betsy);
   const [artist, setArtist] = useState("");
-  // const [timeStamp, setTimeStamp] = useState("3:35");
-  //   const [first, setFirst] = useState(true);
 
-  //   const shuffleState = isShuffled ? "#10638d" : "";
-  //   const loopingState = isLooping ? "#10638d" : "";
-  //   const isFirstImage = first ? { width: "0px" } : { width: "auto" };
-  //   const firstTitle = first ? { fontSize: "22px" } : { fontSize: "16px" };
   const [value, setValue] = useState(30);
   const [oldVolume, setOldVolume] = useState(30);
 
@@ -73,8 +65,15 @@ const Footer = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    let volume = newValue / 100;
-    dispatch(setVolume(volume));
+  };
+
+  const handleSubmit = async (event) => {
+    dispatch(setVolume(value / 100));
+    if (remoteControl) {
+      await updateDoc(doc(db, "playlist", token), {
+        volume: value / 100,
+      });
+    }
   };
 
   function skipSong(direction) {
@@ -205,7 +204,12 @@ const Footer = () => {
       <div className="controller__right">
         <div className="controller__right--onhover">
           <Box className="controller__right--slider" sx={{ width: 80 }}>
-            <Slider aria-label="Volume" value={value} onChange={handleChange} />
+            <Slider
+              aria-label="Volume"
+              value={value}
+              onChange={handleChange}
+              onMouseUp={handleSubmit}
+            />
           </Box>
           {volumeIcons()}
           <Loop className="controller__right--button" />

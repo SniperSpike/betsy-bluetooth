@@ -30,9 +30,11 @@ const Home = () => {
                     items.push(doc.data());
                 });
                 setPlaylist(items);
-                setInitial(true);
                 $('.load').click();
                 $('.load').click();
+                setTimeout(() =>{
+                    setInitial(true);
+                },200)
             }
         );
     // eslint-disable-next-line
@@ -42,9 +44,7 @@ const Home = () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             dispatch(setUser(user));
-        } else {
-            window.location.href = "/login";
-        }
+        } 
     });
     
     function randomInt(min, max) {

@@ -10,15 +10,17 @@ import setPlaylist from "./setPlaylist";
 import isPaused from "./isPaused";
 import isShuffled from "./isShuffled";
 import isLooping from "./isLooping";
-import colorPalette from "./colorPalette";
 import volumeReducer from "./volume";
 import selected from "./selectedPlaylist";
 import setPlaylistId from "./setPlaylistId";
+import remoteControl from "./remoteControl";
+import currentlyPlaying from "./currentlyPlaying";
 
 const allReducers = combineReducers({
   playlist: setPlaylist,
-  token: tokenReducer,
   playlistId: setPlaylistId,
+  remoteControl,
+  currentlyPlaying,
   songId: videoIdReducer,
   volume: volumeReducer,
   selectedPlaylist: selected,
@@ -29,7 +31,7 @@ const allReducers = combineReducers({
   search: searchReducer,
   searchResults: setSearchResults,
   isAddingSong,
-  colorPalette,
+  token: tokenReducer,
   user: userReducer,
 });
 

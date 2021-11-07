@@ -69,9 +69,9 @@ const Join = () =>{
     }
     
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (!user) return window.location.href = "/login";
-    });
+    // onAuthStateChanged(auth, (user) => {
+    //   if (!user) return window.location.href = "/login";
+    // });
 
     $(function(){
   

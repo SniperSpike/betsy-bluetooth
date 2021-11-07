@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import $ from "jquery";
 import YouTube from "@u-wave/react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 import { isPausedToggle, setSong } from "../actions";
+import { doc, onSnapshot, updateDoc } from "@firebase/firestore";
+import { db } from "../firebase";
 const Ytplayer = () => {
   const dispatch = useDispatch();
 
@@ -13,17 +15,34 @@ const Ytplayer = () => {
   const isShuffled = useSelector((state) => state.isShuffled);
   const isLooping = useSelector((state) => state.isLooping);
   const volume = useSelector((state) => state.volume);
+  const token = useSelector((state) => state.token);
+  const remoteControl = useSelector((state) => state.remoteControl);
 
-  const onChange = (e) => {
+  const onChange = async (e) => {
     switch (e.data) {
       case 1:
         dispatch(isPausedToggle(false));
+        if (remoteControl) {
+          await updateDoc(doc(db, "playlist", token), {
+            isPaused: false,
+          });
+        }
         break;
       case 2:
         dispatch(isPausedToggle(true));
+        if (remoteControl) {
+          await updateDoc(doc(db, "playlist", token), {
+            isPaused: true,
+          });
+        }
         break;
       case 3:
         dispatch(isPausedToggle(false));
+        if (remoteControl) {
+          await updateDoc(doc(db, "playlist", token), {
+            isPaused: false,
+          });
+        }
         break;
       default:
         break;

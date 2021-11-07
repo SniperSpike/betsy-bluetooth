@@ -43,9 +43,9 @@ const Search = (match) =>{
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            setUser(user);
-        } else {
-            window.location.href = "/login";
+            dispatch(setUser(user));
+        }else{
+            window.location.href = "/"
         }
     });
 
