@@ -34,7 +34,6 @@ const Song = (props) => {
   const paused = useSelector((state) => state.isPaused);
   const token = useSelector((state) => state.token);
   const remoteControl = useSelector((state) => state.remoteControl);
-  const currentlyPlaying = useSelector((state) => state.currentSelected);
 
   const settings = (event) => {
     event.stopPropagation();

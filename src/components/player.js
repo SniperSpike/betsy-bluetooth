@@ -8,7 +8,7 @@ import Search from "../components/search";
 import { useDispatch, useSelector } from "react-redux";
 import FlipMove from "react-flip-move";
 import Favorite from "./favorite";
-import { setPlaylist, setRemoteControl } from "../actions/index.js";
+import { setPlaylist } from "../actions/index.js";
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
 import { Switch } from "@material-ui/core";
 

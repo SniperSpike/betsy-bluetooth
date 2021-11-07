@@ -1,24 +1,13 @@
 import React from "react";
-
-import { auth } from "./firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Search from "./pages/Search";
-import { setUser } from "./actions";
 import Home from "./pages/Home";
 import Add from "./pages/Add";
 
-function App(params) {
+function App() {
   return (
     <Router>
       <div className="App">

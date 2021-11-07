@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import $ from 'jquery';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { PlayArrow } from '@material-ui/icons';
 import { useDispatch } from "react-redux";
 import { setToken } from '../actions'

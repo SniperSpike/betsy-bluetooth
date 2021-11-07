@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import $ from "jquery";
 import YouTube from "@u-wave/react-youtube";
 import { useSelector, useDispatch } from "react-redux";
 import { isPausedToggle, setSong } from "../actions";
-import { doc, onSnapshot, updateDoc } from "@firebase/firestore";
+import { doc, updateDoc } from "@firebase/firestore";
 import { db } from "../firebase";
 const Ytplayer = () => {
   const dispatch = useDispatch();
