@@ -55,7 +55,9 @@ const Home = () => {
         if (user) {
             dispatch(setUser(user));
             setInitial(true);
-        } 
+        } else{
+            setInitial(true);
+        }
     });
     
     function randomInt(min, max) {
