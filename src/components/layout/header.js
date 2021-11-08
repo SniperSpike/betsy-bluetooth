@@ -180,17 +180,17 @@ const Header = (props) => {
           </form>
           <ul className={toggleSearch ? "hidden" : "navbar"}>
             <li>
-              <Home className="nav-icons" />
               <Link to="/" className={props.page === "home" ? "active" : ""}>
+                <Home className="nav-icons" />
                 Home
               </Link>
             </li>
             <li className={cookieToken ? "hidden" : ""}>
-              <CastConnected className="nav-icons" />
               <Link
                 to="/join"
                 className={props.page === "join" ? "active" : ""}
               >
+                <CastConnected className="nav-icons" />
                 Join
               </Link>
             </li>
@@ -203,8 +203,10 @@ const Header = (props) => {
               </Link>
             </li>
             <li>
-              <LibraryMusic className="nav-icons" />
-              <Link to="/">Library</Link>
+              <Link to="/">
+                <LibraryMusic className="nav-icons" />
+                Library
+              </Link>
             </li>
             <li onClick={() => setToggleSearch(!toggleSearch)}>
               <Search /> Search

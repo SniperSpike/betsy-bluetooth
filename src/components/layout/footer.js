@@ -65,6 +65,7 @@ const Footer = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    dispatch(setVolume(newValue / 100));
   };
 
   const handleSubmit = async (event) => {
