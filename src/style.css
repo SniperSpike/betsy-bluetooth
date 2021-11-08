@@ -136,7 +136,7 @@ body {
   padding-bottom: 1.1rem;
 }
 
-.navbar > .active {
+.navbar li > .active {
   color: white;
 }
 
@@ -153,15 +153,28 @@ body {
   cursor: pointer;
 }
 
+.navbar li a {
+  color: #818181;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  color: white;
+  cursor: pointer;
+}
+
+
 #search-nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 60px;
-
+  -webkit-transition: background-color 100ms linear;
+  -ms-transition: background-color 100ms linear;
+  transition: background-color 100ms linear;
   width: 100%;
   /* background-color: var(--searchbar-color); */
-  background-color: #030303;
+  /* background-color: #030303; */
 }
 
 #invite-nav {
@@ -1090,6 +1103,7 @@ input[type="range"]::-webkit-slider-thumb {
 .playlistBox__info {
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 
 .playlistBox__info img {
@@ -1339,6 +1353,17 @@ iframe {
   justify-content: center;
 }
 
+.loginBtn{
+  color: black;
+  background-color: white;
+  border: 0;
+  border-radius: 2px;
+  font-size: 0.9em;
+  font-weight: bold;
+  padding: 0.3em 1em;
+  cursor: pointer;
+}
+
 .login__googleButton {
   padding: 0.8em 1.2em;
   background-color: white;
@@ -1576,6 +1601,21 @@ ol, ul {
 ;
 }
 
+.homepage{
+  margin-top: 8em;
+}
+
+.homebackground{
+  background-image:
+  linear-gradient(to bottom, rgba(0, 0, 0, 0.62), #030303),
+  url('images/homebackground.png');
+  position: absolute;
+  height: 70vh;
+  overflow: hidden;
+  width: 100%;
+  background-size: cover;
+}
+
 .searchItem {
   /* background-color: var(--blue-2); */
   background-color: #030303;
@@ -1593,6 +1633,12 @@ ol, ul {
   #queue {
     margin: 0rem 0rem;
   }
+  .homebackground{
+    height: 60vh;
+  }
+  .homepage {
+    margin-top: 5em;
+  }
 }
 @media only screen and (max-width: 1500px) {
   #album {
@@ -1609,17 +1655,20 @@ ol, ul {
   #queue {
     margin: 0rem 0rem;
   }
+  .homebackground{
+    height: 50vh;
+  }
 }
 @media only screen and (max-width: 975px) {
   #queue {
     /* margin-top: 10em !important; */
     z-index: 1000;
   }
-  html,
+  /* html,
   body {
     position: fixed;
     overflow: hidden;
-  }
+  } */
   #album {
     position: relative !important;
     margin-bottom: 56.25% !important;

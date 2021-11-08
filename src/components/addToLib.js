@@ -8,7 +8,6 @@ const AddToLib = (props) => {
   const playlistId = useSelector((state) => state.playlistId);
 
   const addLibrary = () => {
-    console.log(playlistId);
     axios
       .get(
         `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails,id,status&maxResults=50&playlistId=${playlistId}&key=${token}`

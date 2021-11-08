@@ -27,6 +27,7 @@ import {
   signInWithPopup,
 } from "@firebase/auth";
 import { firebase } from "../../firebase";
+import { Link } from "react-router-dom";
 
 const API_KEY = "AIzaSyDDRrKbPOjqy7r1VnoGjpKOhq7g7ZCNtjE";
 
@@ -59,7 +60,6 @@ const Header = (props) => {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log(user);
       dispatch(setUser(user));
     }
   });
@@ -125,24 +125,6 @@ const Header = (props) => {
     $("#search").focus();
   };
 
-  const goHome = () => {
-    if (props.page !== "home") {
-      window.location.href = "/";
-    }
-  };
-
-  const goJoin = () => {
-    if (props.page !== "join") {
-      window.location.href = "/join";
-    }
-  };
-
-  const goParty = (token) => {
-    if (props.page !== token) {
-      window.location.href = `/${token}`;
-    }
-  };
-
   const searchChange = (e) => {
     dispatch(setSearchValue(e.target.value));
     if (e.target.value.length !== 0) {
@@ -197,26 +179,32 @@ const Header = (props) => {
             </div>
           </form>
           <ul className={toggleSearch ? "hidden" : "navbar"}>
-            <li className="active" onClick={() => goHome()}>
+            <li>
               <Home className="nav-icons" />
-              Home
+              <Link to="/" className={props.page === "home" ? "active" : ""}>
+                Home
+              </Link>
             </li>
-            <li
-              onClick={() => goJoin()}
-              className={cookieToken ? "hidden" : ""}
-            >
+            <li className={cookieToken ? "hidden" : ""}>
               <CastConnected className="nav-icons" />
-              Join
+              <Link
+                to="/join"
+                className={props.page === "join" ? "active" : ""}
+              >
+                Join
+              </Link>
             </li>
-            <li
-              onClick={() => goParty(cookieToken)}
-              className={cookieToken ? "tokenli" : "hidden"}
-            >
-              {cookieToken}
+            <li className={cookieToken ? "tokenli" : "hidden"}>
+              <Link
+                to={`/${cookieToken}`}
+                className={props.page === cookieToken ? "active" : ""}
+              >
+                {cookieToken}
+              </Link>
             </li>
             <li>
               <LibraryMusic className="nav-icons" />
-              Library
+              <Link to="/">Library</Link>
             </li>
             <li onClick={() => setToggleSearch(!toggleSearch)}>
               <Search /> Search
@@ -225,7 +213,9 @@ const Header = (props) => {
         </div>
         <div className="account">
           {user.length === 0 ? (
-            <button onClick={() => signInWithGoogle()}>INLOGGEN</button>
+            <button className="loginBtn" onClick={() => signInWithGoogle()}>
+              SIGN IN
+            </button>
           ) : (
             <>
               <img

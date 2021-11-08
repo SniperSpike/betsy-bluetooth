@@ -14,7 +14,6 @@ const SearchItem = ({ title, disc, image, dataUrl }) => {
   const addSong = async (songId) => {
     const { uid } = auth.currentUser;
     let duration;
-    console.log(songId);
     $.get(
       `https://www.googleapis.com/youtube/v3/videos?id=${songId}&part=contentDetails&key=${API_KEY}`,
       async function (data) {

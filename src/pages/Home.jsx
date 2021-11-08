@@ -20,30 +20,41 @@ const Home = () => {
     const [initial, setInitial] = useState(false);
 
     useEffect(() => {
-        onSnapshot(
-            query(
-            collection(db, "recommended")
-            ),
-            (querySnapshot) => {
-                const items = [];
-                querySnapshot.forEach((doc) => {
-                    items.push(doc.data());
-                });
-                setPlaylist(items);
+        if(!localStorage.getItem("recommended")){
+            onSnapshot(
+                query(
+                collection(db, "recommended")
+                ),
+                (querySnapshot) => {
+                    const items = [];
+                    querySnapshot.forEach((doc) => {
+                        items.push(doc.data());
+                    });
+                    setPlaylist(items);
+                    localStorage.setItem("recommended", JSON.stringify(items))
+                    $('.load').click();
+                    $('.load').click();
+                    setTimeout(() =>{
+                        setInitial(true);
+                    },200)
+                }
+            );
+        }else{
+            const json = JSON.parse(localStorage.getItem("recommended"));
+            setPlaylist(json);
+            
+            setTimeout(() => {
                 $('.load').click();
                 $('.load').click();
-                setTimeout(() =>{
-                    setInitial(true);
-                },200)
-            }
-        );
+            }, 200)
+        }
     // eslint-disable-next-line
     }, []);
-
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
             dispatch(setUser(user));
+            setInitial(true);
         } 
     });
     
@@ -70,7 +81,13 @@ const Home = () => {
         }
     }
 
+
      $(window).scroll(function() {
+        if($(window).scrollTop() < 5){
+            $('#search-nav').css('background-color', 'unset');
+        }else{
+            $('#search-nav').css('background-color', '#030303');
+        }
         if($(window).scrollTop() + $(window).height() === $(document).height()) {
             $('.load').click();
         }
@@ -84,9 +101,10 @@ const Home = () => {
             </div>
             <div>
                 <Header page="home" type="desktop"/>
+                <div className="homebackground"></div>
                 <div className="homepage fix-nav">
-                    {recommended.map((item) => {
-                        return(<Playlist subs="" user={item.name} isVerified={true} channelId={item.channelId}/>);
+                    {recommended.map((item, index) => {
+                        return(<Playlist key={index} subs="" user={item.name} isVerified={true} channelId={item.channelId}/>);
                     })}
                     <button className="load" style={{opacity: 0, width: "1px", height: "1px"}} onClick={() => scrollLoad()}></button>
                     {scrollLock ? <div className="homespinner"><div className="spinner-border" role="status"></div></div> : <></>}
